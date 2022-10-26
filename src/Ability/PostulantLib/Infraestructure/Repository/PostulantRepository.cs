@@ -62,7 +62,11 @@ namespace Jobag.src.Ability.PostulantLib.Infraestructure.Repository
 
         public async Task<Postulant> FindPostulantInformationById(PostulantId id)
         {
-            return await db.Postulants.Where(x => x.Id == (int)id).Include(x => x.skillPostulants).FirstOrDefaultAsync();
+            return await db.Postulants
+                .Where(x => x.Id == (int)id)
+                .Include(x => x.SkillPostulants)
+                    .ThenInclude(y => y.Skill)
+                .FirstOrDefaultAsync();
         }
     }
 }

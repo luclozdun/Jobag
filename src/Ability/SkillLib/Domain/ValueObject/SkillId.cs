@@ -18,5 +18,10 @@ namespace Jobag.src.Ability.SkillLib.Domain.ValueObject
         {
             return skillId.Id;
         }
+
+        public static SkillId Create(int id)
+        {
+            return new SkillId(id);
+        }
     }
 }

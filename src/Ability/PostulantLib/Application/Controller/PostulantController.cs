@@ -2,20 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Jobag.src.Ability.PostulantLib.Application.Commands;
-using Jobag.src.Ability.PostulantLib.Application.Commands.Bus;
-using Jobag.src.Ability.PostulantLib.Application.Commands.Create;
-using Jobag.src.Ability.PostulantLib.Application.Commands.Remove;
-using Jobag.src.Ability.PostulantLib.Application.Commands.Update;
-using Jobag.src.Ability.PostulantLib.Application.Queries.Bus;
-using Jobag.src.Ability.PostulantLib.Application.Queries.FindById;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Commands;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Commands.Remove;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Commands.Update;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Queries.FindAll;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Queries.FindPostulantById;
+using Jobag.src.Ability.PostulantLib.Application.Internal.Queries.FindPostulantInformationById;
 using Jobag.src.Ability.PostulantLib.Domain.Entity;
 using Jobag.src.Ability.PostulantLib.Domain.Exception;
-using Jobag.src.Ability.PostulantLib.Domain.Repository;
-using Jobag.src.Ability.PostulantLib.Domain.Resource;
-using Jobag.src.Ability.PostulantLib.Domain.ValueObject;
-using Jobag.src.Shared.Application.Commands;
-using Jobag.src.Shared.Domain.Repository;
+using Jobag.src.Ability.PostulantLib.Application.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jobag.src.Ability.PostulantLib.Application.Controller
@@ -25,55 +21,53 @@ namespace Jobag.src.Ability.PostulantLib.Application.Controller
     public class PostulantController : ControllerBase
     {
 
-        public readonly IPostulantQueries queries;
+        public readonly IMediator mediator;
 
-        public readonly IPostulantCommands commands;
-
-        public PostulantController(IPostulantCommands commands, IPostulantQueries queries)
+        public PostulantController(IMediator mediator)
         {
-            this.commands = commands;
-            this.queries = queries;
+            this.mediator = mediator;
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> FindById(int id)
+        public async Task<IActionResult> FindById([FromRoute] int id)
         {
-            PostulantResponse result = await queries.FindById(id);
-            return result.Success == true ? Ok(PostulantResource.Convert(result.Resource)) : BadRequest(result.Message);
+            var result = await mediator.Send(new FindPostulantByIdQuery(id));
+            return result.Success == true ? Ok(PostulantResponse.Convert(result.Resource)) : BadRequest(result.Message);
         }
 
         [HttpGet("/info/{id}")]
-        public async Task<IActionResult> FindByIdAllInfo(int id)
+        public async Task<IActionResult> FindByIdAllInfo([FromRoute] int id)
         {
-            var a = await queries.FindInformacionById(id);
-            return Ok(a);
+            PostulantResult result = await mediator.Send(new FindPostulantInformationByIdQuery(id));
+            return result.Success == true ? Ok(PostulantInformationResponse.Convert(result.Resource)) : BadRequest(result.Message);
         }
 
         [HttpGet]
         public async Task<IEnumerable<Postulant>> FindAll()
         {
-            var result = await queries.FindAll();
-            return result;
+            IEnumerable<Postulant> response = await mediator.Send(new FindAllPostulantQuery());
+            return response;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePostulantCommand command)
+        public async Task<IActionResult> Create([FromBody] PostulantRequest request)
         {
-            PostulantResponse result = await commands.Create(command);
-            return result.Success == true ? Ok(PostulantResource.Convert(result.Resource)) : BadRequest(result.Message);
+            PostulantResult result = await mediator.Send(new CreatePostulantCommand(request));
+            return result.Success == true ? Ok(PostulantResponse.Convert(result.Resource)) : BadRequest(result.Message);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove([FromRoute] int id)
         {
-            PostulantResponse result = await commands.Remove(id);
-            return result.Success == true ? Ok(PostulantResource.Convert(result.Resource)) : BadRequest(result.Message);
+            PostulantResult result = await mediator.Send(new RemovePostulantCommand(id));
+            return result.Success == true ? Ok(PostulantResponse.Convert(result.Resource)) : BadRequest(result.Message);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdatePostulantCommand command)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PostulantRequest request)
         {
-            PostulantResponse result = await commands.Update(id, command);
-            return result.Success == true ? Ok(PostulantResource.Convert(result.Resource)) : BadRequest(result.Message);
+            PostulantResult result = await mediator.Send(new UpdatePostulantCommand(id, request));
+            return result.Success == true ? Ok(PostulantResponse.Convert(result.Resource)) : BadRequest(result.Message);
         }
     }
 }

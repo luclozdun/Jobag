@@ -11,10 +11,12 @@ namespace Jobag.src.Ability.SkillLib.Domain.Entity
     public class Skill
     {
         public int Id { get; private set; }
-        public SkillName Name { get; private set; }
-        public SkillDescription Description { get; private set; }
-        public IList<SkillPostulant> skillPostulants { get; set; }
-        private Skill(int id, SkillName name, SkillDescription description)
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+
+        [JsonIgnore]
+        public IList<SkillPostulant> SkillPostulants { get; set; }
+        private Skill(int id, string name, string description)
         {
             Id = id;
             Name = name;
@@ -25,7 +27,7 @@ namespace Jobag.src.Ability.SkillLib.Domain.Entity
         {
         }
 
-        public static Skill Create(SkillName name, SkillDescription description)
+        public static Skill Create(string name, string description)
         {
             return new Skill(0, name, description);
         }
@@ -35,14 +37,20 @@ namespace Jobag.src.Ability.SkillLib.Domain.Entity
             this.Id = id;
         }
 
-        public void setName(SkillName name)
+        public void setName(string name)
         {
             this.Name = name;
         }
 
-        public void setDescription(SkillDescription description)
+        public void setDescription(string description)
         {
             this.Description = description;
+        }
+
+        public void Update(Skill request)
+        {
+            this.Name = request.Name;
+            this.Description = request.Description;
         }
     }
 }

@@ -31,11 +31,9 @@ namespace Jobag.src.Shared.Infraestructure.Resource
                 postulant.HasKey(x => x.Id);
                 postulant.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
-                postulant.OwnsOne(o => o.FirstName, conf =>
-                conf.Property(x => x.Value).HasColumnName("FirstName"));
+                postulant.Property(x => x.FirstName).HasColumnName("FirstName");
 
-                postulant.OwnsOne(o => o.LastName, conf =>
-                conf.Property(x => x.Value).HasColumnName("LastName"));
+                postulant.Property(x => x.LastName).HasColumnName("LastName");
 
                 postulant.OwnsOne(o => o.Email, conf =>
                 conf.Property(x => x.Value).HasColumnName("Email"));
@@ -57,20 +55,18 @@ namespace Jobag.src.Shared.Infraestructure.Resource
                 skill.HasKey(x => x.Id);
                 skill.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
-                skill.OwnsOne(o => o.Name, conf =>
-                conf.Property(x => x.Value).HasColumnName("Name"));
+                skill.Property(x => x.Name).HasColumnName("Name");
 
-                skill.OwnsOne(o => o.Description, conf =>
-                 conf.Property(x => x.Value).HasColumnName("Description"));
+                skill.Property(x => x.Description).HasColumnName("Description");
             });
 
             builder.Entity<SkillPostulant>(skillPostulant =>
             {
                 skillPostulant.ToTable("SkillPostulants");
-                skillPostulant.HasKey(x => new { x.postulantId, x.skillId });
+                skillPostulant.HasKey(x => new { x.PostulantId, x.SkillId });
 
-                skillPostulant.HasOne(x => x.postulant).WithMany(x => x.skillPostulants).HasForeignKey(x => x.postulantId);
-                skillPostulant.HasOne(x => x.skill).WithMany(x => x.skillPostulants).HasForeignKey(x => x.skillId);
+                skillPostulant.HasOne(x => x.Postulant).WithMany(x => x.SkillPostulants).HasForeignKey(x => x.PostulantId);
+                skillPostulant.HasOne(x => x.Skill).WithMany(x => x.SkillPostulants).HasForeignKey(x => x.SkillId);
             });
         }
     }

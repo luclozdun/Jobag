@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Jobag.src.Ability.PostulantLib.Domain.Entity;
 using Jobag.src.Ability.PostulantLib.Domain.ValueObject;
@@ -15,17 +16,18 @@ namespace Jobag.src.Ability.SkillLib.Domain.Aggregate
         {
         }
 
-        public SkillPostulant(int skillId, int postulantId)
+        public SkillPostulant(SkillId skillId, PostulantId postulantId)
         {
-            this.skillId = skillId;
-            this.postulantId = postulantId;
+            this.SkillId = (int)skillId;
+            this.PostulantId = (int)postulantId;
         }
 
-        public int skillId { get; private set; }
-        public int postulantId { get; private set; }
+        public int SkillId { get; private set; }
+        public int PostulantId { get; private set; }
 
-        public Skill skill { get; set; }
+        public Skill Skill { get; }
 
-        public Postulant postulant { get; set; }
+        [JsonIgnore]
+        public Postulant Postulant { get; }
     }
 }

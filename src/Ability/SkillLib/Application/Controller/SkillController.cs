@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Jobag.src.Ability.PostulantLib.Domain.Exception;
-using Jobag.src.Ability.PostulantLib.Domain.Resource;
-using Jobag.src.Ability.PostulantLib.Domain.ValueObject;
-using Jobag.src.Ability.SkillLib.Application.Commands.Bus;
-using Jobag.src.Ability.SkillLib.Application.Commands.CreateSkill;
-using Jobag.src.Ability.SkillLib.Domain.Aggregate;
+using Jobag.src.Ability.SkillLib.Application.DTOs;
+using Jobag.src.Ability.SkillLib.Application.Internal.Commands.CreateSkill;
+using Jobag.src.Ability.SkillLib.Application.Internal.Commands.CreateSkillPostulant;
+using Jobag.src.Ability.SkillLib.Application.Internal.Commands.RemoveSkill;
+using Jobag.src.Ability.SkillLib.Application.Internal.Commands.UpdateSkill;
 using Jobag.src.Ability.SkillLib.Domain.Exception;
-using Jobag.src.Ability.SkillLib.Domain.Repository;
-using Jobag.src.Ability.SkillLib.Domain.Resource;
-using Jobag.src.Ability.SkillLib.Infraestructure;
-using Jobag.src.Shared.Domain.Repository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jobag.src.Ability.SkillLib.Application.Controller
@@ -21,40 +14,32 @@ namespace Jobag.src.Ability.SkillLib.Application.Controller
     [ApiController]
     public class SkillController : ControllerBase
     {
-        public readonly ISkillCommands commands;
+        public readonly IMediator mediator;
 
-        public readonly ISkillPostulantRepository skillPostulantRepository;
-
-        public readonly IUnitOfWork unitOfWork;
-
-        public SkillController(ISkillCommands commands, ISkillPostulantRepository skillPostulantRepository, IUnitOfWork unitOfWork)
+        public SkillController(IMediator mediator)
         {
-            this.commands = commands;
-            this.skillPostulantRepository = skillPostulantRepository;
-            this.unitOfWork = unitOfWork;
+            this.mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSkillCommand command)
+        public async Task<IActionResult> Create(SkillRequest request)
         {
-            SkillResponse result = await commands.Create(command);
-            return result.Success == true ? Ok(SkillResource.Convert(result.Resource)) : BadRequest(result.Message);
+            SkillResult result = await mediator.Send(new CreateSkillCommand(request));
+            return result.Success ? Ok(result.Resource) : BadRequest(result.Message);
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> Add(int postulantId, int asd)
+        [HttpPut("{skillId}")]
+        public async Task<IActionResult> Update([FromRoute] int skillId, [FromBody] SkillRequest request)
         {
-            await skillPostulantRepository.AddSkillByIdAndPostulantById(new SkillPostulant(asd, postulantId));
-            await unitOfWork.CompleteAsync();
-            return Ok("Bien");
+            SkillResult result = await mediator.Send(new UpdateSkillCommand(skillId, request));
+            return result.Success ? Ok(result.Resource) : BadRequest(result.Message);
         }
 
-        [HttpGet("add")]
-        public async Task<IActionResult> GetAdd()
+        [HttpDelete("{skillId}")]
+        public async Task<IActionResult> Remove([FromRoute] int skillId, [FromBody] SkillRequest request)
         {
-            IList<SkillPostulant> a = await skillPostulantRepository.FindAllSkillByPostulantId(new PostulantId(1));
-
-            return Ok(SkillResource.ConvertToList(a));
+            SkillResult result = await mediator.Send(new RemoveSkillCommand(skillId));
+            return result.Success ? Ok(result.Resource) : BadRequest(result.Message);
         }
     }
 }

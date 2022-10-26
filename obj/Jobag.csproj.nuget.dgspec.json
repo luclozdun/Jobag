@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\workspace\\Arquitectura de Software Emergentes\\backend_DDD\\Jobag\\Jobag.csproj": {}
+    "E:\\workspace\\domain driven design\\Jobag\\Jobag.csproj": {}
   },
   "projects": {
-    "E:\\workspace\\Arquitectura de Software Emergentes\\backend_DDD\\Jobag\\Jobag.csproj": {
+    "E:\\workspace\\domain driven design\\Jobag\\Jobag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\workspace\\Arquitectura de Software Emergentes\\backend_DDD\\Jobag\\Jobag.csproj",
+        "projectUniqueName": "E:\\workspace\\domain driven design\\Jobag\\Jobag.csproj",
         "projectName": "Jobag",
-        "projectPath": "E:\\workspace\\Arquitectura de Software Emergentes\\backend_DDD\\Jobag\\Jobag.csproj",
+        "projectPath": "E:\\workspace\\domain driven design\\Jobag\\Jobag.csproj",
         "packagesPath": "C:\\Users\\lucia\\.nuget\\packages\\",
-        "outputPath": "E:\\workspace\\Arquitectura de Software Emergentes\\backend_DDD\\Jobag\\obj\\",
+        "outputPath": "E:\\workspace\\domain driven design\\Jobag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lucia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -41,6 +41,10 @@
           "targetAlias": "net6.0",
           "dependencies": {
             "MediatR": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[11.0.0, )"
             },

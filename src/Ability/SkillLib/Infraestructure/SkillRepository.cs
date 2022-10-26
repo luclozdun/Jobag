@@ -30,9 +30,9 @@ namespace Jobag.src.Ability.SkillLib.Infraestructure
             return await db.Skills.FindAsync((int)id);
         }
 
-        public async Task<Skill> FindSkillByName(SkillName name)
+        public async Task<Skill> FindSkillByName(string name)
         {
-            return await db.Skills.Where(p => p.Name.Value == (string)name).FirstOrDefaultAsync();
+            return await db.Skills.Where(p => p.Name == name).FirstOrDefaultAsync();
         }
 
         public void RemoveSkill(Skill skill)

@@ -12,7 +12,7 @@ namespace Jobag.src.Ability.SkillLib.Domain.Repository
     {
         Task<Skill> FindSkillById(SkillId id);
 
-        Task<Skill> FindSkillByName(SkillName name);
+        Task<Skill> FindSkillByName(string name);
 
         Task CreateSkill(Skill skill);
 

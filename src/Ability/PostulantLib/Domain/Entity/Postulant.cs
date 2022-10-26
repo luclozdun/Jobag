@@ -11,9 +11,9 @@ namespace Jobag.src.Ability.PostulantLib.Domain.Entity
     {
         public int Id { get; private set; }
 
-        public PostulantFirstName FirstName { get; private set; }
+        public string FirstName { get; private set; }
 
-        public PostulantLastName LastName { get; private set; }
+        public string LastName { get; private set; }
 
         public PostulantEmail Email { get; private set; }
 
@@ -25,8 +25,8 @@ namespace Jobag.src.Ability.PostulantLib.Domain.Entity
 
         public string CivilStatus { get; private set; }
 
-        public IList<SkillPostulant> skillPostulants { get; set; }
-        private Postulant(int id, PostulantFirstName firstName, PostulantLastName lastName, PostulantEmail email, PostulantNumber number, PostulantPassword password, PostulantDocument document, string civilStatus)
+        public IList<SkillPostulant> SkillPostulants { get; set; }
+        private Postulant(int id, string firstName, string lastName, PostulantEmail email, PostulantNumber number, PostulantPassword password, PostulantDocument document, string civilStatus)
         {
             this.Id = id;
             this.FirstName = firstName;
@@ -40,25 +40,35 @@ namespace Jobag.src.Ability.PostulantLib.Domain.Entity
 
         private Postulant()
         {
-
         }
 
-        public static Postulant Create(PostulantFirstName firstName, PostulantLastName lastName, PostulantEmail email, PostulantNumber number, PostulantPassword password, PostulantDocument document, string civilStatus)
+        public void Update(Postulant request)
+        {
+            this.FirstName = request.FirstName;
+            this.LastName = request.LastName;
+            this.Email = request.Email;
+            this.Number = request.Number;
+            this.Password = request.Password;
+            this.Document = request.Document;
+            this.CivilStatus = request.CivilStatus;
+        }
+
+        public static Postulant Create(string firstName, string lastName, PostulantEmail email, PostulantNumber number, PostulantPassword password, PostulantDocument document, string civilStatus)
         {
             return new Postulant(0, firstName, lastName, email, number, password, document, civilStatus);
         }
 
         public void setId(PostulantId id)
         {
-            this.Id = id;
+            this.Id = (int)id;
         }
 
-        public void SetFirstName(PostulantFirstName FirstName)
+        public void SetFirstName(string FirstName)
         {
             this.FirstName = FirstName;
         }
 
-        public void SetLastName(PostulantLastName LastName)
+        public void SetLastName(string LastName)
         {
             this.LastName = LastName;
         }
