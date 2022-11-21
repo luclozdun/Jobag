@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Jobag.src.Shared.Application.Queries
 {
-    public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse> where TQuery : IQuery<TResponse>
+    public interface IQueryHandler<TQuery, TResult> : IRequestHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
     }
 }

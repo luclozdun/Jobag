@@ -2525,21 +2525,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\workspace\\domain driven design\\Jobag\\Jobag.csproj",
+      "projectUniqueName": "D:\\Workspace\\Fundamentos de Arquitectura de Software\\Backend\\Jobag\\Jobag.csproj",
       "projectName": "Jobag",
-      "projectPath": "e:\\workspace\\domain driven design\\Jobag\\Jobag.csproj",
+      "projectPath": "D:\\Workspace\\Fundamentos de Arquitectura de Software\\Backend\\Jobag\\Jobag.csproj",
       "packagesPath": "C:\\Users\\lucia\\.nuget\\packages\\",
-      "outputPath": "e:\\workspace\\domain driven design\\Jobag\\obj\\",
+      "outputPath": "D:\\Workspace\\Fundamentos de Arquitectura de Software\\Backend\\Jobag\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lucia\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\lucia\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2602,7 +2600,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Jobag.src.Shared.Application.Commands
 {
-    public interface ICommand<TResponse> : IRequest<TResponse>
+    public interface ICommand<TResult> : IRequest<TResult>
     {
 
     }

@@ -1,8 +1,4 @@
 using System.Reflection;
-using Jobag.src.Ability.PostulantLib.Domain.Repository;
-using Jobag.src.Ability.PostulantLib.Infraestructure.Repository;
-using Jobag.src.Ability.SkillLib.Domain.Repository;
-using Jobag.src.Ability.SkillLib.Infraestructure;
 using Jobag.src.Shared.Domain.Repository;
 using Jobag.src.Shared.Infraestructure.Resource;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +8,8 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Jobag.src.Ability.Domain.Repositories;
+using Jobag.src.Ability.Infraestructure.Repositories;
 
 namespace jobag_api_ddd
 {
@@ -35,6 +33,7 @@ namespace jobag_api_ddd
             services.AddScoped<IPostulantRepository, PostulantRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddScoped<ISkillPostulantRepository, SkillPostulantRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddMediatR(Assembly.GetExecutingAssembly());

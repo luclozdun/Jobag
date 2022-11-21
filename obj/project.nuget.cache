@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OWnCZPxzlQC14lsX7pXnXPHIYzxv1aeBc9Nf3GkBVQVf06MRG4ussKkp9oK3gZDtl2iuomorujfKersE+9mpwA==",
+  "dgSpecHash": "o7fN9P0eM4ndASBuV3MqSga+SS+mmpdLQ6SkiOGH1+YmfAPhGY6tW8PpFyy3CjIetRjuBDN3DHs/L/n962HWwg==",
   "success": true,
-  "projectFilePath": "E:\\workspace\\domain driven design\\Jobag\\Jobag.csproj",
+  "projectFilePath": "D:\\Workspace\\Fundamentos de Arquitectura de Software\\Backend\\Jobag\\Jobag.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucia\\.nuget\\packages\\mediatr\\11.0.0\\mediatr.11.0.0.nupkg.sha512",
     "C:\\Users\\lucia\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
