@@ -1,8 +1,7 @@
-using Jobag.src.Ability.Domain.Model.Aggregates;
-using Jobag.src.Ability.Domain.Model.Entities;
+using Jobag.src.Resume.Domain.Model.Aggregates;
+using Jobag.src.Resume.Domain.Model.Entities;
 using Jobag.src.Enterprise.Domain.Model.Aggregates;
 using Jobag.src.Enterprise.Domain.Model.Entities;
-using Jobag.src.Membership.Domain.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jobag.src.Shared.Infraestructure.Resource
@@ -19,10 +18,6 @@ namespace Jobag.src.Shared.Infraestructure.Resource
         public DbSet<SkillPostulant> SkillPostulants { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<PlanEmployee> PlanEmployees { get; set; }
-        public DbSet<PlanPostulant> PlanPostulants { get; set; }
-        public DbSet<OrderEmployee> OrderEmployees { get; set; }
-        public DbSet<OrderPostulant> OrderPostulants { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -129,52 +124,6 @@ namespace Jobag.src.Shared.Infraestructure.Resource
                 employee.OwnsOne(o => o.Document, conf => conf.Property(x => x.Dni).HasColumnName("DNI"));
                 employee.OwnsOne(o => o.Password, conf => conf.Property(x => x.Value).HasColumnName("Password"));
                 employee.HasOne(o => o.Company).WithMany(x => x.Employees).HasForeignKey(x => x.Id);
-            });
-
-            builder.Entity<PlanEmployee>(plan =>
-            {
-                plan.ToTable("Plan_Employees");
-                plan.HasKey(x => x.Id);
-                plan.Property(x => x.Id).ValueGeneratedOnAdd();
-                plan.HasMany(x => x.Employees).WithOne(x => x.PlanEmployee).HasForeignKey(x => x.Id);
-                plan.Property(x => x.Name).HasColumnName("Name");
-                plan.Property(x => x.Description).HasColumnName("Description");
-                plan.Property(x => x.CreatedAt).HasColumnName("Created_At");
-                plan.Property(x => x.UpdatedAt).HasColumnName("Updated_At");
-            });
-
-            builder.Entity<PlanPostulant>(plan =>
-            {
-                plan.ToTable("Plan_Employees");
-                plan.HasKey(x => x.Id);
-                plan.Property(x => x.Id).ValueGeneratedOnAdd();
-                plan.HasMany(x => x.Postulants).WithOne(x => x.PlanPostulant).HasForeignKey(x => x.Id);
-                plan.Property(x => x.Name).HasColumnName("Name");
-                plan.Property(x => x.Description).HasColumnName("Description");
-                plan.Property(x => x.CreatedAt).HasColumnName("Created_At");
-                plan.Property(x => x.UpdatedAt).HasColumnName("Updated_At");
-            });
-
-            builder.Entity<OrderEmployee>(order =>
-            {
-                order.ToTable("Order_Employees");
-                order.HasKey(x => x.Id);
-                order.Property(x => x.Id).ValueGeneratedOnAdd();
-                order.HasOne(x => x.Employee).WithMany(x => x.OrderEmployees).HasForeignKey(x => x.Id);
-                order.HasOne(x => x.PlanEmployee).WithMany(x => x.OrderEmployees).HasForeignKey(x => x.Id);
-                order.Property(x => x.Price).HasColumnName("Price");
-                order.Property(x => x.CreatedAt).HasColumnName("Create_AT");
-            });
-
-            builder.Entity<OrderPostulant>(order =>
-            {
-                order.ToTable("Order_Postulants");
-                order.HasKey(x => x.Id);
-                order.Property(x => x.Id).ValueGeneratedOnAdd();
-                order.HasOne(x => x.Postulant).WithMany(x => x.OrderPostulants).HasForeignKey(x => x.Id);
-                order.HasOne(x => x.PlanPostulant).WithMany(x => x.OrderPostulants).HasForeignKey(x => x.Id);
-                order.Property(x => x.Price).HasColumnName("Price");
-                order.Property(x => x.CreatedAt).HasColumnName("Create_AT");
             });
         }
     }

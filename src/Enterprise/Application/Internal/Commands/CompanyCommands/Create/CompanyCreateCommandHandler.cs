@@ -24,7 +24,7 @@ namespace Jobag.src.Enterprise.Application.Internal.Commands.CompanyCommands.Cre
 
         public async Task<CompanyResult> Handle(CompanyCreateCommand request, CancellationToken cancellationToken)
         {
-            CompanyResult result = await Company.Create(request.Name, request.Description, request.Phone, request.RUC, companyRepository);
+            CompanyResult result = await Company.Create(request.Name, request.Description, request.Phone, request.RUC, request.Username, request.Password, companyRepository);
 
             if (!result.Success)
                 return result;

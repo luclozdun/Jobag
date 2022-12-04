@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jobag.src.Enterprise.Application.DTOs;
 using Jobag.src.Enterprise.Domain.Model.ValueObjects;
 using Jobag.src.Enterprise.Domain.Result;
 using Jobag.src.Shared.Application.Commands;
@@ -19,12 +20,12 @@ namespace Jobag.src.Enterprise.Application.Internal.Commands.CompanyCommands.Upd
 
         public Phone Phone { get; }
 
-        public CompanyUpdateCommand(int id, string name, string description, Phone phone)
+        public CompanyUpdateCommand(int id, CompanyRequest request)
         {
             Id = id;
-            Name = name;
-            Description = description;
-            Phone = phone;
+            Name = request.Name;
+            Description = request.Description;
+            Phone = request.Phone;
         }
     }
 }

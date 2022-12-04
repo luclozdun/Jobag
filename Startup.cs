@@ -8,8 +8,8 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Jobag.src.Ability.Domain.Repositories;
-using Jobag.src.Ability.Infraestructure.Repositories;
+using Jobag.src.Resume.Domain.Repositories;
+using Jobag.src.Resume.Infraestructure.Repositories;
 
 namespace jobag_api_ddd
 {

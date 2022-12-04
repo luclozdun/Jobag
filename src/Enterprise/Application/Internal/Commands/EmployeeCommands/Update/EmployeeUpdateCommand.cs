@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jobag.src.Enterprise.Application.DTOs;
 using Jobag.src.Enterprise.Domain.Model.Entities;
 using Jobag.src.Enterprise.Domain.Result;
 using Jobag.src.Shared.Application.Commands;
@@ -25,15 +26,14 @@ namespace Jobag.src.Enterprise.Application.Internal.Commands.EmployeeCommands.Up
 
         public Document Document { get; }
 
-        public EmployeeUpdateCommand(int id, string firstName, string lastName, string email, Phone phone, Password password, Document document)
+        public EmployeeUpdateCommand(int id, EmployeeRequest request)
         {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Phone = phone;
-            Password = password;
-            Document = document;
+            FirstName = request.FirstName;
+            LastName = request.LastName;
+            Email = request.Email;
+            Phone = request.Phone;
+            Password = request.Password;
+            Document = request.Document;
         }
     }
 }

@@ -7,7 +7,6 @@ using Jobag.src.Enterprise.Domain.Model.Entities;
 using Jobag.src.Enterprise.Domain.Model.ValueObjects;
 using Jobag.src.Enterprise.Domain.Repository;
 using Jobag.src.Enterprise.Domain.Result;
-using Jobag.src.Membership.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Phone;
 using Jobag.src.Shared.Domain.Model.ValueObject;
@@ -30,12 +29,7 @@ namespace Jobag.src.Enterprise.Domain.Model.Aggregates
 
         public Company Company { get; private set; }
 
-        public PlanEmployee PlanEmployee { get; private set; }
-
-        [JsonIgnore]
-        public IList<OrderEmployee> OrderEmployees { get; private set; }
-
-        private Employee(string firstName, string lastName, string email, Phone phone, Password password, Document document)
+        internal Employee(string firstName, string lastName, string email, Phone phone, Password password, Document document, Company company)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -43,28 +37,7 @@ namespace Jobag.src.Enterprise.Domain.Model.Aggregates
             Phone = phone;
             Password = password;
             Document = document;
-        }
-
-        public static async Task<EmployeeResult> Create(string firstName, string lastName, string email, Phone phone, Password password, Document document, IEmployeeRepository employeeRepository)
-        {
-            Employee existDocument = await employeeRepository.FindByDocument(document);
-
-            if (existDocument != null)
-                return new EmployeeResult("The document is beign used");
-
-            Employee existEmail = await employeeRepository.FindByEmail(email);
-
-            if (existEmail != null)
-                return new EmployeeResult("The email is beign used");
-
-            Employee existPhone = await employeeRepository.FindByPhone(phone);
-
-            if (existPhone != null)
-                return new EmployeeResult("The phone is beign used");
-
-            Employee employee = new Employee(firstName, lastName, email, phone, password, document);
-
-            return new EmployeeResult(employee);
+            Company = company;
         }
 
         public static async Task<EmployeeResult> Update(int id, string firstName, string lastName, string email, Phone phone, Password password, Document document, IEmployeeRepository employeeRepository)
@@ -106,11 +79,6 @@ namespace Jobag.src.Enterprise.Domain.Model.Aggregates
             employee.Document = document;
 
             return new EmployeeResult(employee);
-        }
-
-        public void AddPlan(PlanEmployee plan)
-        {
-            PlanEmployee = plan;
         }
     }
 }
