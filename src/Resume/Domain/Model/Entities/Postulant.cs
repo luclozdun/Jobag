@@ -7,6 +7,7 @@ using Jobag.src.Resume.Domain.Repositories;
 using Jobag.src.Shared.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Phone;
 using Jobag.src.Shared.Domain.Model.ValueObject;
+using Jobag.src.Job.Domain.Model.Aggregates;
 
 namespace Jobag.src.Resume.Domain.Model.Entities
 {
@@ -28,6 +29,8 @@ namespace Jobag.src.Resume.Domain.Model.Entities
         public IList<SkillPostulant> SkillPostulants { get; set; }
 
         public IList<CoursePostulant> CoursePostulants { get; set; }
+
+        public IList<JobOfferPostulant> JobOfferPostulants { get; set; }
 
         private Postulant(string FirstName, string LastName, string Email, Phone Phone, Password Password, Document Document)
         {

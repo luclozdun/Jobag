@@ -7,6 +7,7 @@ using Jobag.src.Enterprise.Domain.Model.Entities;
 using Jobag.src.Enterprise.Domain.Model.ValueObjects;
 using Jobag.src.Enterprise.Domain.Repository;
 using Jobag.src.Enterprise.Domain.Result;
+using Jobag.src.Job.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Phone;
 using Jobag.src.Shared.Domain.Model.ValueObject;
@@ -29,6 +30,9 @@ namespace Jobag.src.Enterprise.Domain.Model.Aggregates
 
         public Company Company { get; private set; }
 
+        [JsonIgnore]
+        public IList<JobOffer> JobOffers { get; private set; }
+
         internal Employee(string firstName, string lastName, string email, Phone phone, Password password, Document document, Company company)
         {
             FirstName = firstName;
@@ -38,6 +42,10 @@ namespace Jobag.src.Enterprise.Domain.Model.Aggregates
             Password = password;
             Document = document;
             Company = company;
+        }
+
+        private Employee()
+        {
         }
 
         public static async Task<EmployeeResult> Update(int id, string firstName, string lastName, string email, Phone phone, Password password, Document document, IEmployeeRepository employeeRepository)

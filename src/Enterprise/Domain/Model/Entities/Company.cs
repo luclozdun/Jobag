@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Jobag.src.Enterprise.Domain.Model.Aggregates;
 using Jobag.src.Enterprise.Domain.Model.ValueObjects;
 using Jobag.src.Enterprise.Domain.Repository;
 using Jobag.src.Enterprise.Domain.Result;
+using Jobag.src.Job.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Entities;
 using Jobag.src.Shared.Domain.Model.Phone;
 using Jobag.src.Shared.Domain.Model.ValueObject;
@@ -24,11 +26,15 @@ namespace Jobag.src.Enterprise.Domain.Model.Entities
 
         public int QuantifyOfEmployees { get; private set; }
 
-        public IList<Employee> Employees { get; private set; }
-
         public string Username { get; private set; }
 
         public string Password { get; private set; }
+
+        [JsonIgnore]
+        public IList<Employee> Employees { get; private set; }
+
+        [JsonIgnore]
+        public IList<JobOffer> JobOffers { get; private set; }
 
         private Company(string name, string description, Phone phone, RUC RUC, int quantifyOfEmployees, string username, string password)
         {
@@ -39,6 +45,10 @@ namespace Jobag.src.Enterprise.Domain.Model.Entities
             this.QuantifyOfEmployees = quantifyOfEmployees;
             Username = username;
             Password = password;
+        }
+
+        private Company()
+        {
         }
 
         public static async Task<CompanyResult> Create(string name, string description, Phone phone, RUC RUC, string username, string password, ICompanyRepository companyRepository)

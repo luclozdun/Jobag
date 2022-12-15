@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Jobag.src.Job.Domain.Model.Aggregates;
+using Jobag.src.Job.Domain.Model.Entities;
 using Jobag.src.Resume.Domain.Model.Aggregates;
 using Jobag.src.Shared.Domain.Model.Entities;
 
@@ -15,6 +17,10 @@ namespace Jobag.src.Resume.Domain.Model.Entities
 
         [JsonIgnore]
         public IList<CoursePostulant> CoursePostulants { get; set; }
+
+        [JsonIgnore]
+        public IList<JobOfferCourse> JobOfferCourses {get; set;}
+
         private Course(string name, string description)
         {
             Name = name;

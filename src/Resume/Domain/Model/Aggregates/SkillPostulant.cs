@@ -23,7 +23,7 @@ namespace Jobag.src.Resume.Domain.Model.Aggregates
         {
         }
 
-        private SkillPostulant(SkillId SkillId, PostulantId PostulantId)
+        public SkillPostulant(SkillId SkillId, PostulantId PostulantId)
         {
             this.SkillId = (int)SkillId;
             this.PostulantId = (int)PostulantId;

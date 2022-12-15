@@ -8,12 +8,7 @@ using Jobag.src.Resume.Application.Internal.Commands.PostulantCommands.Postulant
 using Jobag.src.Resume.Application.Internal.Commands.PostulantCommands.PostulantSignIn;
 using Jobag.src.Resume.Application.Internal.Commands.PostulantCommands.PostulantUpdate;
 using Jobag.src.Resume.Application.Internal.Queries.PostulantQueries.PostulantInformation;
-using Jobag.src.Resume.Domain.Model.Entities;
 using Jobag.src.Resume.Domain.Result;
-using Jobag.src.Resume.Domain.Repositories;
-using Jobag.src.Shared.Domain.Model.Phone;
-using Jobag.src.Shared.Domain.Model.ValueObject;
-using Jobag.src.Shared.Domain.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
